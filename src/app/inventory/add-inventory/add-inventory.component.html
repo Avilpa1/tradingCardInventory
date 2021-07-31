@@ -1,3 +1,12 @@
+<div class="totalValContainer" id="totalValId" (click)="openTotal()">
+    <span class="material-icons">
+        attach_money
+    </span>
+    <div>
+        {{ totalVal | currency : 'USD' : 'symbol' : '1.0-0' }}
+    </div>
+</div>
+
 <div class="mainForm">
     <h2>Add Card</h2>
     <form [formGroup]="form">
@@ -41,7 +50,7 @@
 
 <div class="cardContainer">
     <h2 style="margin-top: 2rem; text-align: center;">Card Inventory</h2>
-    <ng-container *ngFor='let card of cards | async'>
+    <ng-container *ngFor='let card of (cards | async)?.slice().reverse()'>
         <div class="card">
             <div class="deleteIcon">
                 <span 

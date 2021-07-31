@@ -13,11 +13,12 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AddInventoryComponent implements OnInit {
 
-  cards: any = [];
+  cards: Observable<any>;
   cardId = 0;
   form: FormGroup;
   editMode = false;
   noImg = 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/600px-No_image_available.svg.png'
+  totalVal = 0;
 
   constructor(public store: Store<fromInventory.State>, private http: HttpClient) {
     this.form = new FormGroup({
@@ -28,12 +29,10 @@ export class AddInventoryComponent implements OnInit {
       teamName: new FormControl(null, Validators.required),
       estimatedValue: new FormControl(null)
     });
+    this.cards = this.store.select(fromInventory.selectAll);
    }
 
-  ngOnInit(): void {
-    this.cards = this.store.select(fromInventory.selectAll);
-
-  }
+  ngOnInit(): void {}
 
   async addCard(): Promise<any> {
     this.cardId = this.cardId + 1;
@@ -49,20 +48,16 @@ export class AddInventoryComponent implements OnInit {
     };
 
     this.store.dispatch( new actions.Create(card));
-
+    this.totalEstimatedValue();
     this.clearForm();
-
-    let test;
-    this.store.select(fromInventory.selectAll).subscribe(data => test = data);
-    console.warn(test);
   }
 
   deleteCard(id: any): void {
     this.store.dispatch( new actions.Delete(id) );
+    this.totalEstimatedValue();
   }
 
   selectCardToUpdate(card: any): void {
-    console.warn(card);
     this.editMode = true;
     const {img, ...partialObject} = card;
     this.form.setValue( partialObject );
@@ -79,6 +74,7 @@ export class AddInventoryComponent implements OnInit {
       estimatedValue: this.form.controls.estimatedValue.value
     };
     this.store.dispatch( new actions.Update(this.form.controls.id.value, card));
+    this.totalEstimatedValue();
     this.clearForm();
   }
 
@@ -87,11 +83,32 @@ export class AddInventoryComponent implements OnInit {
     this.form.reset();
   }
 
+  openTotal(): void {
+    const elm: any = document.getElementById('totalValId');
+    if (this.totalVal === 0) {
+      elm.style.transform = 'translateX(-30px)';
+    } else if (this.totalVal > 999) {
+      elm.style.transform = 'translateX(-75px)';
+    } else {
+      elm.style.transform = 'translateX(-60px)';
+    }
+  }
+
+  totalEstimatedValue(): void {
+    let cardData: any;
+    let cardVal = 0;
+    this.store.select(fromInventory.selectAll).subscribe( data => cardData = data );
+    cardData.forEach((card: any) => {
+      cardVal = card.estimatedValue + cardVal;
+    });
+    this.totalVal = cardVal;
+    this.openTotal();
+  }
+
   getPlayerImg(): any {
     const url = 'https://www.thesportsdb.com/api/v1/json/1/searchplayers.php?p=';
     return new Promise(resolve => {
       this.http.get(`${url}${this.form.controls.firstName.value}%20${this.form.controls.lastName.value}`).subscribe((res: any) => {
-        console.warn(res);
         resolve(res.player?.[0].strThumb);
       });
     });
