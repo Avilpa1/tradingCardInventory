@@ -1,0 +1,72 @@
+<div class="mainForm">
+    <h2>Add Card</h2>
+    <form [formGroup]="form">
+        <div class="formField">
+            <div>First Name:</div>
+            <input type="text" formControlName="firstName">
+        </div>
+        <div class="formField">
+            <div>Last Name:</div>
+            <input type="text" formControlName="lastName">
+        </div>
+        <div class="formField">
+            <div>Player Number:</div>
+            <input type="number" formControlName="playerNumber">
+        </div>
+        <div class="formField">
+            <div>Team Name:</div>
+            <input type="text" formControlName="teamName">
+        </div>
+        <div class="formField">
+            <div>Estimated value:</div>
+            <input type="number" formControlName="estimatedValue">
+        </div>        
+    </form>
+
+    <button 
+        class="submitBtn" 
+        (click)='!editMode ? addCard() : updateCard()' 
+        [ngClass]="{'valid': this.form.valid}"
+        [disabled]="!this.form.valid"
+        >
+        <span *ngIf="!editMode">Add</span>
+        <span *ngIf="editMode">Update</span>
+    </button>
+    <span 
+        class="clearBtn" 
+        *ngIf="editMode"
+        (click)="clearForm()"
+        >Clear</span>
+</div>
+
+<div class="cardContainer">
+    <h2 style="margin-top: 2rem; text-align: center;">Card Inventory</h2>
+    <ng-container *ngFor='let card of cards | async'>
+        <div class="card">
+            <div class="deleteIcon">
+                <span 
+                    class="material-icons"
+                    (click)='deleteCard(card.id)'>
+                    delete
+                </span>
+            </div>
+            <div>
+                <img class="img" [src]="card.img ? card.img : noImg">
+            </div>
+            <div class="cardContent">
+                <div>Name: {{ card.firstName | titlecase }} {{ card.lastName | titlecase }}</div>
+                <div>Player Number: {{ card.playerNumber }}</div>
+                <div>Team: {{ card.teamName | titlecase }}</div>
+                <div>
+                    Estimated Value: {{ card.estimatedValue | currency }}
+                    <span *ngIf="!card.estimatedValue">N/A</span>
+                </div>
+                <div class="center">
+                    <button class="updateBtn" (click)='selectCardToUpdate(card)'>Update</button>                    
+                </div>
+            </div>
+        </div>
+    </ng-container>
+    
+
+</div>

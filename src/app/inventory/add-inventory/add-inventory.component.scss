@@ -1,0 +1,104 @@
+.mainForm {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    box-shadow: 0px 3px 3px -2px rgba(0, 0, 0, 0.2), 0px 3px 4px 0px rgba(0, 0, 0, 0.14), 0px 1px 8px 0px rgba(0, 0, 0, 0.12) !important;
+    border-radius: 0.2rem;
+
+    h2 {
+        margin-top: 0;
+        text-align: center;
+    }
+}
+
+.formField {
+    display: flex;
+    flex-direction: row;
+    padding: 0.5rem;
+
+    div {
+        width: 100%;
+    }
+
+    input {
+        width: 100%;
+        border-radius: 0.2rem;
+        border: 1px solid grey;
+        padding-left: 0.5rem;
+    }
+}
+
+.submitBtn {
+    margin-top: 2rem;
+    border-radius: 0.2rem;
+    border: 1px solid grey;
+    padding: 0.3rem 0;
+    color: black;
+    background-color: rgb(221, 221, 221);
+    box-shadow: 0px 3px 3px -2px rgba(0, 0, 0, 0.2), 0px 3px 4px 0px rgba(0, 0, 0, 0.14), 0px 1px 8px 0px rgba(0, 0, 0, 0.12) !important;
+}
+
+.card {
+    background-color: white;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 75%;
+    justify-content: center;
+    
+    margin-bottom: 1rem;
+    box-shadow: 0px 3px 3px -2px rgba(0, 0, 0, 0.2), 0px 3px 4px 0px rgba(0, 0, 0, 0.14), 0px 1px 8px 0px rgba(0, 0, 0, 0.12) !important;
+    border-radius: 2rem;
+}
+
+.cardContent {
+    padding: 1rem 2rem 2rem;
+}
+
+.cardContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.valid {
+    background-color: #005cab;
+    color: white;
+}
+
+.clearBtn {
+    margin-top: 0.6rem;
+    align-self: center;
+}
+
+.deleteIcon {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    color: lightgray;
+}
+
+.img {
+    width: 100%;
+    border-radius: 2rem 2rem 0 0;
+}
+
+.updateBtn {
+    display: flex;
+    align-self: center;
+    justify-content: center;
+    margin-top: 2rem;
+    border-radius: 0.2rem;
+    border: 1px solid grey;
+    padding: 0.3rem 0;
+    color: black;
+    background-color: rgb(221, 221, 221);
+    box-shadow: 0px 3px 3px -2px rgba(0, 0, 0, 0.2), 0px 3px 4px 0px rgba(0, 0, 0, 0.14), 0px 1px 8px 0px rgba(0, 0, 0, 0.12) !important;
+    width: 50%;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+}
