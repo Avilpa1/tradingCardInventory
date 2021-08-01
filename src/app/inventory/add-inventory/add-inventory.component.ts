@@ -30,7 +30,7 @@ export class AddInventoryComponent implements OnInit {
       estimatedValue: new FormControl(null)
     });
     this.cards = this.store.select(fromInventory.selectAll);
-   }
+  }
 
   ngOnInit(): void {}
 
@@ -47,13 +47,13 @@ export class AddInventoryComponent implements OnInit {
       img
     };
 
-    this.store.dispatch( new actions.Create(card));
+    this.store.dispatch(new actions.Create(card));
     this.totalEstimatedValue();
     this.clearForm();
   }
 
   deleteCard(id: any): void {
-    this.store.dispatch( new actions.Delete(id) );
+    this.store.dispatch(new actions.Delete(id));
     this.totalEstimatedValue();
   }
 
@@ -108,7 +108,8 @@ export class AddInventoryComponent implements OnInit {
   getPlayerImg(): any {
     const url = 'https://www.thesportsdb.com/api/v1/json/1/searchplayers.php?p=';
     return new Promise(resolve => {
-      this.http.get(`${url}${this.form.controls.firstName.value}%20${this.form.controls.lastName.value}`).subscribe((res: any) => {
+      this.http.get(`${url}${this.form.controls.firstName.value}%20${this.form.controls.lastName.value}`)
+      .subscribe((res: any) => {
         resolve(res.player?.[0].strThumb);
       });
     });

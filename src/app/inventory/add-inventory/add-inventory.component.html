@@ -48,8 +48,8 @@
         >Clear</span>
 </div>
 
-<div class="cardContainer">
-    <h2 style="margin-top: 2rem; text-align: center;">Card Inventory</h2>
+<div class="cardContainer" *ngIf="(cards | async).length > 0">
+    <h2 style="margin-top: 0.5rem; text-align: center;">Card Inventory</h2>
     <ng-container *ngFor='let card of (cards | async)?.slice().reverse()'>
         <div class="card">
             <div class="deleteIcon">
